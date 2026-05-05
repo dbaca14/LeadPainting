@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LEAD Painting Co.</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Georgia', serif; background: #f9f6f1; color: #1a1a1a; }
+  nav { background: #1a1a1a; padding: 1.2rem 2rem; display: flex; justify-content: space-between; align-items: center; }
+  .logo { color: #f9f6f1; font-size: 1.4rem; letter-spacing: 0.15em; font-weight: 400; }
+  .logo span { color: #c9a84c; }
+  nav ul { list-style: none; display: flex; gap: 2rem; }
+  nav ul li a { color: #ccc; text-decoration: none; font-family: 'Arial', sans-serif; font-size: 0.85rem; letter-spacing: 0.08em; text-transform: uppercase; }
+  nav ul li a:hover { color: #c9a84c; }
+
+  .hero { background: #1a1a1a; color: #f9f6f1; padding: 6rem 2rem 5rem; text-align: center; position: relative; overflow: hidden; }
+  .hero::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: repeating-linear-gradient(45deg, transparent, transparent 40px, rgba(201,168,76,0.03) 40px, rgba(201,168,76,0.03) 80px); }
+  .hero-tag { font-family: 'Arial', sans-serif; font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase; color: #c9a84c; margin-bottom: 1.5rem; }
+  .hero h1 { font-size: clamp(2.5rem, 6vw, 4.5rem); font-weight: 400; letter-spacing: 0.05em; line-height: 1.15; margin-bottom: 1.5rem; }
+  .hero h1 span { color: #c9a84c; font-style: italic; }
+  .hero p { font-family: 'Arial', sans-serif; font-size: 1rem; color: #aaa; max-width: 480px; margin: 0 auto 2.5rem; line-height: 1.7; }
+  .btn-primary { display: inline-block; background: #c9a84c; color: #1a1a1a; padding: 0.9rem 2.2rem; font-family: 'Arial', sans-serif; font-size: 0.8rem; letter-spacing: 0.15em; text-transform: uppercase; text-decoration: none; border: none; cursor: pointer; }
+  .btn-primary:hover { background: #b8973e; }
+  .btn-outline { display: inline-block; border: 1px solid #555; color: #f9f6f1; padding: 0.9rem 2.2rem; font-family: 'Arial', sans-serif; font-size: 0.8rem; letter-spacing: 0.15em; text-transform: uppercase; text-decoration: none; margin-left: 1rem; cursor: pointer; }
+  .btn-outline:hover { border-color: #c9a84c; color: #c9a84c; }
+
+  .strip { background: #c9a84c; padding: 1rem 2rem; display: flex; justify-content: center; gap: 3rem; flex-wrap: wrap; }
+  .strip-item { font-family: 'Arial', sans-serif; font-size: 0.78rem; letter-spacing: 0.1em; text-transform: uppercase; color: #1a1a1a; font-weight: 500; }
+
+  section { padding: 5rem 2rem; max-width: 1100px; margin: 0 auto; }
+  .section-tag { font-family: 'Arial', sans-serif; font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: #c9a84c; margin-bottom: 0.8rem; }
+  .section-title { font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 400; margin-bottom: 1rem; color: #1a1a1a; }
+  .section-sub { font-family: 'Arial', sans-serif; font-size: 0.95rem; color: #666; line-height: 1.7; max-width: 520px; margin-bottom: 3rem; }
+
+  .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 2px; }
+  .service-card { background: #1a1a1a; color: #f9f6f1; padding: 2.5rem 2rem; position: relative; }
+  .service-card:nth-child(2) { background: #232323; }
+  .service-num { font-family: 'Arial', sans-serif; font-size: 0.72rem; letter-spacing: 0.15em; color: #c9a84c; margin-bottom: 1.5rem; }
+  .service-card h3 { font-size: 1.3rem; font-weight: 400; margin-bottom: 1rem; }
+  .service-card p { font-family: 'Arial', sans-serif; font-size: 0.88rem; color: #999; line-height: 1.7; }
+  .service-divider { width: 30px; height: 1px; background: #c9a84c; margin: 1.2rem 0; }
+
+  .why-section { background: #f2ede4; padding: 5rem 2rem; }
+  .why-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+  .why-points { display: flex; flex-direction: column; gap: 1.5rem; margin-top: 2rem; }
+  .why-point { display: flex; gap: 1rem; align-items: flex-start; }
+  .why-icon { width: 32px; height: 32px; background: #c9a84c; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .why-icon svg { width: 16px; height: 16px; fill: #1a1a1a; }
+  .why-point h4 { font-family: 'Arial', sans-serif; font-size: 0.9rem; font-weight: 600; margin-bottom: 0.3rem; color: #1a1a1a; }
+  .why-point p { font-family: 'Arial', sans-serif; font-size: 0.85rem; color: #666; line-height: 1.6; }
+  .big-stat { text-align: center; padding: 3rem; background: #1a1a1a; color: #f9f6f1; }
+  .big-num { font-size: 5rem; color: #c9a84c; line-height: 1; margin-bottom: 0.5rem; }
+  .big-label { font-family: 'Arial', sans-serif; font-size: 0.78rem; letter-spacing: 0.15em; text-transform: uppercase; color: #999; }
+
+  .cta-section { background: #1a1a1a; padding: 5rem 2rem; text-align: center; }
+  .cta-section .section-title { color: #f9f6f1; max-width: 600px; margin: 0 auto 1rem; }
+  .cta-section .section-sub { color: #888; margin: 0 auto 2.5rem; }
+
+  footer { background: #111; padding: 2rem; text-align: center; }
+  footer p { font-family: 'Arial', sans-serif; font-size: 0.78rem; color: #555; letter-spacing: 0.05em; }
+  footer span { color: #c9a84c; }
+
+  @media (max-width: 700px) {
+    .why-inner { grid-template-columns: 1fr; }
+    nav ul { display: none; }
+    .strip { gap: 1.2rem; }
+    .btn-outline { margin-left: 0; margin-top: 0.8rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">LEAD <span>Painting Co.</span></div>
+  <ul>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#why">Why Us</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<div class="hero">
+  <p class="hero-tag">Residential Painting Specialists</p>
+  <h1>We Transform<br>Your <span>Home.</span></h1>
+  <p>Professional interior and exterior painting for residential properties. Clean work, honest pricing, lasting results.</p>
+  <a href="#contact" class="btn-primary">Get a Free Quote</a>
+  <a href="#services" class="btn-outline">Our Services</a>
+</div>
+
+<div class="strip">
+  <span class="strip-item">Free Estimates</span>
+  <span class="strip-item">Licensed & Insured</span>
+  <span class="strip-item">Interior & Exterior</span>
+  <span class="strip-item">Satisfaction Guaranteed</span>
+</div>
+
+<section id="services">
+  <p class="section-tag">What We Do</p>
+  <h2 class="section-title">Our Services</h2>
+  <p class="section-sub">We specialize in residential painting — bringing precision and care to every project, inside and out.</p>
+  <div class="services-grid">
+    <div class="service-card">
+      <p class="service-num">01</p>
+      <h3>Interior Painting</h3>
+      <div class="service-divider"></div>
+      <p>Full interior painting for any room. We handle prep work, priming, patching, and cleanup — so you don't have to.</p>
+    </div>
+    <div class="service-card">
+      <p class="service-num">02</p>
+      <h3>Exterior Painting</h3>
+      <div class="service-divider"></div>
+      <p>Curb appeal matters. We use weather-resistant, premium paints to protect and beautify the outside of your home.</p>
+    </div>
+    <div class="service-card">
+      <p class="service-num">03</p>
+      <h3>Color Consultation</h3>
+      <div class="service-divider"></div>
+      <p>Not sure what color to go with? We help you find the right palette that fits your style and your space.</p>
+    </div>
+  </div>
+</section>
+
+<div class="why-section" id="why">
+  <div class="why-inner">
+    <div>
+      <p class="section-tag">Why LEAD</p>
+      <h2 class="section-title">Craftsmanship You Can Count On</h2>
+      <div class="why-points">
+        <div class="why-point">
+          <div class="why-icon">
+            <svg viewBox="0 0 16 16"><path d="M8 1l1.8 3.6 4 .6-2.9 2.8.7 4L8 10l-3.6 1.9.7-4L2.2 5.2l4-.6z"/></svg>
+          </div>
+          <div>
+            <h4>Premium Materials Only</h4>
+            <p>We use top-quality paints and primers for a finish that lasts for years, not months.</p>
+          </div>
+        </div>
+        <div class="why-point">
+          <div class="why-icon">
+            <svg viewBox="0 0 16 16"><path d="M8 1a7 7 0 100 14A7 7 0 008 1zm3.5 5.5l-4 4a.75.75 0 01-1.06 0l-2-2a.75.75 0 011.06-1.06L7 8.94l3.47-3.47a.75.75 0 011.06 1.06z"/></svg>
+          </div>
+          <div>
+            <h4>Thorough Prep Work</h4>
+            <p>Great paint jobs start before the first stroke. We clean, sand, and prime every surface properly.</p>
+          </div>
+        </div>
+        <div class="why-point">
+          <div class="why-icon">
+            <svg viewBox="0 0 16 16"><path d="M8 1C4.13 1 1 4.13 1 8s3.13 7 7 7 7-3.13 7-7-3.13-7-7-7zm.75 10.5h-1.5v-5h1.5v5zm0-6.5h-1.5V3.5h1.5V5z"/></svg>
+          </div>
+          <div>
+            <h4>Transparent Pricing</h4>
+            <p>No surprises. We give you a clear, itemized estimate before any work begins.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="big-stat">
+      <div class="big-num">100%</div>
+      <div class="big-label">Satisfaction Guaranteed</div>
+    </div>
+  </div>
+</div>
+
+<div class="cta-section" id="contact">
+  <p class="section-tag" style="color:#c9a84c;">Get Started</p>
+  <h2 class="section-title">Ready for a Fresh Coat?</h2>
+  <p class="section-sub">Contact us today for a free, no-obligation estimate. We serve residential customers throughout the area.</p>
+  <a href="mailto:hello@leadpaintingco.com" class="btn-primary">Email Us Today</a>
+</div>
+
+<footer>
+  <p>&copy; 2026 <span>LEAD Painting Co.</span> — All rights reserved.</p>
+</footer>
+
+</body>
+</html>

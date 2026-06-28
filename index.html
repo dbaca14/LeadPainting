@@ -163,8 +163,8 @@
           </div>
         </div>
         <div class="ba-slider" id="slider-1">. 
-          <img class="ba-img after"  src="houses/afterResidenceOne.jpeg"  alt="After — Residence 1">
           <img class="ba-img before" src="houses/beforeResidenceOne.jpeg" alt="Before — Residence 1">
+          <img class="ba-img after"  src="houses/afterResidenceOne.jpeg"  alt="After — Residence 1">
           <div class="ba-divider" id="divider-1"></div>
           <div class="ba-handle" id="handle-1">
             <svg viewBox="0 0 20 20"><path d="M7 4l-4 6 4 6M13 4l4 6-4 6"/></svg>
@@ -237,7 +237,7 @@
     const slider = document.getElementById(sliderId);
     const divider = document.getElementById(dividerId);
     const handle = document.getElementById(handleId);
-    const afterImg = slider.querySelector('.ba-img.after');
+    const beforeImg = slider.querySelector('.ba-img.before');
     let dragging = false;
 
     function setPosition(x) {
@@ -247,9 +247,9 @@
       const pctPx = (pct * 100).toFixed(2) + '%';
       divider.style.left = pctPx;
       handle.style.left = pctPx;
-      afterImg.style.clipPath = `inset(0 ${(100 - pct * 100).toFixed(2)}% 0 0)`;
+      beforeImg.style.clipPath = `inset(0 ${(100 - pct * 100).toFixed(2)}% 0 0)`;
     }
-
+ß
     slider.addEventListener('mousedown',  e => { dragging = true; setPosition(e.clientX); });
     slider.addEventListener('touchstart', e => { dragging = true; setPosition(e.touches[0].clientX); }, { passive: true });
     window.addEventListener('mousemove',  e => { if (dragging) setPosition(e.clientX); });

@@ -237,7 +237,7 @@
     const slider = document.getElementById(sliderId);
     const divider = document.getElementById(dividerId);
     const handle = document.getElementById(handleId);
-    const beforeImg = slider.querySelector('.ba-img.before');
+    const afterImg = slider.querySelector('.ba-img.before');
     let dragging = false;
 
     function setPosition(x) {
@@ -247,9 +247,9 @@
       const pctPx = (pct * 100).toFixed(2) + '%';
       divider.style.left = pctPx;
       handle.style.left = pctPx;
-      beforeImg.style.clipPath = `inset(0 ${(100 - pct * 100).toFixed(2)}% 0 0)`;
+      afterImg.style.clipPath = `inset(0 ${(100 - pct * 100).toFixed(2)}% 0 0)`;
     }
-ß
+
     slider.addEventListener('mousedown',  e => { dragging = true; setPosition(e.clientX); });
     slider.addEventListener('touchstart', e => { dragging = true; setPosition(e.touches[0].clientX); }, { passive: true });
     window.addEventListener('mousemove',  e => { if (dragging) setPosition(e.clientX); });

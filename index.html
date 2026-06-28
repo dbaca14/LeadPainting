@@ -41,6 +41,28 @@
   .service-card p { font-family: 'Arial', sans-serif; font-size: 0.88rem; color: #999; line-height: 1.7; }
   .service-divider { width: 30px; height: 1px; background: #c9a84c; margin: 1.2rem 0; }
 
+  /* ── Before/After Gallery ── */
+  .gallery-section { background: #f2ede4; padding: 5rem 2rem; }
+  .gallery-inner { max-width: 1100px; margin: 0 auto; }
+  .gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(480px, 1fr)); gap: 3rem; margin-top: 3rem; }
+
+  .ba-card { background: #1a1a1a; }
+  .ba-card-label { font-family: 'Arial', sans-serif; font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: #f9f6f1; padding: 0.9rem 1.2rem; display: flex; justify-content: space-between; align-items: center; }
+  .ba-card-label .project-name { color: #c9a84c; }
+
+  .ba-slider { position: relative; width: 100%; aspect-ratio: 4/3; overflow: hidden; cursor: col-resize; user-select: none; }
+  .ba-img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; }
+  .ba-img.after { clip-path: inset(0 50% 0 0); }
+  .ba-divider { position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 2px; height: 100%; background: #c9a84c; z-index: 10; pointer-events: none; }
+  .ba-handle { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 40px; height: 40px; background: #c9a84c; border-radius: 50%; z-index: 11; display: flex; align-items: center; justify-content: center; pointer-events: none; box-shadow: 0 2px 8px rgba(0,0,0,0.4); }
+  .ba-handle svg { width: 18px; height: 18px; fill: #1a1a1a; }
+
+  .ba-pills { display: flex; gap: 0; }
+  .ba-pill { font-family: 'Arial', sans-serif; font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; padding: 0.3rem 0.7rem; }
+  .ba-pill.before { background: #333; color: #aaa; }
+  .ba-pill.after  { background: #c9a84c; color: #1a1a1a; }
+
+  /* ── Why Section ── */
   .why-section { background: #f2ede4; padding: 5rem 2rem; }
   .why-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
   .why-points { display: flex; flex-direction: column; gap: 1.5rem; margin-top: 2rem; }
@@ -66,6 +88,7 @@
     nav ul { display: none; }
     .strip { gap: 1.2rem; }
     .btn-outline { margin-left: 0; margin-top: 0.8rem; }
+    .gallery-grid { grid-template-columns: 1fr; }
   }
 </style>
 </head>
@@ -75,6 +98,7 @@
   <div class="logo">LEAD <span>Painting Co.</span></div>
   <ul>
     <li><a href="#services">Services</a></li>
+    <li><a href="#gallery">Our Work</a></li>
     <li><a href="#why">Why Us</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
@@ -119,6 +143,40 @@
     </div>
   </div>
 </section>
+
+<!-- ── Before / After Gallery ── -->
+<div class="gallery-section" id="gallery">
+  <div class="gallery-inner">
+    <p class="section-tag">Our Work</p>
+    <h2 class="section-title">Before &amp; After</h2>
+    <p class="section-sub">Drag the slider to see the transformation. Real results from real homes.</p>
+
+    <div class="gallery-grid">
+
+      <!-- Card 1 — Fernando -->
+      <div class="ba-card">
+        <div class="ba-card-label">
+          <span class="project-name">Fernando Residence</span>
+          <div class="ba-pills">
+            <span class="ba-pill before">Before</span>
+            <span class="ba-pill after">After</span>
+          </div>
+        </div>
+        <div class="ba-slider" id="slider-1">
+          <img class="ba-img before" src="houses/beforeFernando.jpeg" alt="Before — Fernando Residence">
+          <img class="ba-img after"  src="houses/afterFernando.jpeg"  alt="After — Fernando Residence">
+          <div class="ba-divider" id="divider-1"></div>
+          <div class="ba-handle" id="handle-1">
+            <svg viewBox="0 0 20 20"><path d="M7 4l-4 6 4 6M13 4l4 6-4 6"/></svg>
+          </div>
+        </div>
+      </div>
+
+      <!-- Add more ba-card blocks here as your portfolio grows -->
+
+    </div>
+  </div>
+</div>
 
 <div class="why-section" id="why">
   <div class="why-inner">
@@ -168,12 +226,40 @@
   <p class="section-sub">Contact us today for a free, no-obligation estimate. We serve residential customers throughout the area.</p>
   <a href="mailto:hello@leadpaintingco.com" class="btn-primary">Email Us Today</a>
   <a href="tel:915-247-2968" class="btn-primary">Call us for a FREE quote</a>
-
 </div>
 
 <footer>
   <p>&copy; 2026 <span>LEAD Painting Co.</span> — All rights reserved. (915) 247-2968</p>
 </footer>
+
+<script>
+  function initSlider(sliderId, dividerId, handleId) {
+    const slider = document.getElementById(sliderId);
+    const divider = document.getElementById(dividerId);
+    const handle = document.getElementById(handleId);
+    const afterImg = slider.querySelector('.ba-img.after');
+    let dragging = false;
+
+    function setPosition(x) {
+      const rect = slider.getBoundingClientRect();
+      let pct = (x - rect.left) / rect.width;
+      pct = Math.min(Math.max(pct, 0.02), 0.98);
+      const pctPx = (pct * 100).toFixed(2) + '%';
+      divider.style.left = pctPx;
+      handle.style.left = pctPx;
+      afterImg.style.clipPath = `inset(0 ${(100 - pct * 100).toFixed(2)}% 0 0)`;
+    }
+
+    slider.addEventListener('mousedown',  e => { dragging = true; setPosition(e.clientX); });
+    slider.addEventListener('touchstart', e => { dragging = true; setPosition(e.touches[0].clientX); }, { passive: true });
+    window.addEventListener('mousemove',  e => { if (dragging) setPosition(e.clientX); });
+    window.addEventListener('touchmove',  e => { if (dragging) setPosition(e.touches[0].clientX); }, { passive: true });
+    window.addEventListener('mouseup',  () => dragging = false);
+    window.addEventListener('touchend', () => dragging = false);
+  }
+
+  initSlider('slider-1', 'divider-1', 'handle-1');
+</script>
 
 </body>
 </html>

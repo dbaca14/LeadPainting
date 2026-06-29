@@ -52,7 +52,7 @@
 
   .ba-slider { position: relative; width: 100%; aspect-ratio: 4/3; overflow: hidden; cursor: col-resize; user-select: none; }
   .ba-img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; }
-  .ba-img.after { clip-path: inset(0 50% 0 0); }
+  .ba-img.after { clip-path: inset(0 0 0 50%); }
   .ba-divider { position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 2px; height: 100%; background: #c9a84c; z-index: 10; pointer-events: none; }
   .ba-handle { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 40px; height: 40px; background: #c9a84c; border-radius: 50%; z-index: 11; display: flex; align-items: center; justify-content: center; pointer-events: none; box-shadow: 0 2px 8px rgba(0,0,0,0.4); }
   .ba-handle svg { width: 18px; height: 18px; fill: #1a1a1a; }
@@ -164,14 +164,13 @@
         </div>
         <div class="ba-slider" id="slider-1">
           <img class="ba-img before" src="houses/beforeResidenceOne.jpeg" alt="Before — Residence 1">
-          <img class="ba-img after"  src="houses/afterResidenceOne.jpeg"  alt="After — Residence 1">
+          <img class="ba-img after"  src="houses/afterResidenceOnewLeadLogo.jpg"  alt="After — Residence 1">
           <div class="ba-divider" id="divider-1"></div>
           <div class="ba-handle" id="handle-1">
             <svg viewBox="0 0 20 20"><path d="M7 4l-4 6 4 6M13 4l4 6-4 6"/></svg>
           </div>
         </div>
       </div>
-
       <!-- Add more ba-card blocks here as your portfolio grows -->
 
     </div>
@@ -247,7 +246,7 @@
       const pctPx = (pct * 100).toFixed(2) + '%';
       divider.style.left = pctPx;
       handle.style.left = pctPx;
-      afterImg.style.clipPath = `inset(0 ${(100 - pct * 100).toFixed(2)}% 0 0)`;
+      afterImg.style.clipPath = `inset(0 0 0 ${(pct * 100).toFixed(2)}%)`;  
     }
 
     slider.addEventListener('mousedown',  e => { dragging = true; setPosition(e.clientX); });
